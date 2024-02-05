@@ -93,7 +93,11 @@
     .camposItens{
         width: 300px;
         min-height: 500px;
-        
+        align-items: start;
+    }
+
+    .grupoStatusEstoque{
+        margin-left: 1.5rem;
     }
     .grupoProdutoDescricao input{
         width: 80%;

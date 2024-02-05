@@ -1,26 +1,5 @@
-// document.getElementById('departamento').addEventListener('focus',function(){
-//     const inputDepartamento = document.getElementById('departamento');
-//     inputDepartamento.style.backgroundColor="#90ee90"
-// });
-
-// document.getElementById('departamento').addEventListener('blur',function(){
-//     const inputDepartamento = document.getElementById('departamento');
-//     inputDepartamento.style.backgroundColor="white"
-// });
-
 function adicionarCorAoFocarInput() {
-    // const listinput = document.querySelectorAll("input[type=text]");
     const listinput = document.querySelectorAll("input");
-
-    // console.log(listinput.length);
-    // console.log(listinput);
-
-    // for (let i = 0; i < listinput.length; i++) {
-    //     listinput[i].style.backgroundColor="#90ee90"
-    //   } // colocar cor em todos os .text
-
-    // listinput[0].style.backgroundColor="#90ee90"
-    // listinput[1].style.backgroundColor="#90ee90"
 
     listinput.forEach(function(campo){
         campo.addEventListener('focus',function(){
@@ -164,12 +143,10 @@ document.getElementById('idFuncionario').addEventListener("keyup",function() {
 
 document.getElementById('btn-gravar').addEventListener('click',function(){
     const elementosObrigatorios = document.querySelectorAll('[data-obrigatorio="true"]');
-    // console.log(elementosObrigatorios);
     
     let validadoCamposPreenhcidos=true;
 
-    setTimeout(function(){ 
-        // validadoCamposPreenhcidos=true;           
+    setTimeout(function(){        
         if(validadoCamposPreenhcidos){
             document.getElementById('modalSucesso').style.display='block';
         }
@@ -230,15 +207,7 @@ function adcionarRegraCamposSomenteNumeros(){
     })
 } // adcionar numero
 
-
-// document.getElementById('fecharModal').addEventListener('click',function(){
-
-// })
-
-
-
-
-adicionarCorAoFocarInput(); // Inicia a função ao carregar a página 
+adicionarCorAoFocarInput(); 
 carregarCategorias();
 carregarMotivos();
 adcionarRegraCamposSomenteNumeros();
@@ -249,7 +218,7 @@ document.getElementById('BtnInserirItens').addEventListener('click',function(){
 
     const campoProduto = document.getElementById('CodigoProduto')
     const campoDescricaoProduto = document.getElementById('DescricaoProduto')
-    const campoQuantidade = document.getElementById('Estoque')
+    const campoQuantidade = document.getElementById('QuantidadeEstoque')
     const totalRequisicao = document.getElementById('total')
 
     const linha = document.createElement('tr')
@@ -348,3 +317,38 @@ var inpNumero = document.getElementById("inpNumero");
 
         spanItensRequisicao.textContent = "Itens da Requisição Nº " + numeroRequisicao;
     });
+
+function habilitarMotivo() {
+    var categoriaMotivoSelect = document.getElementById("categoriaMotivo");
+    var motivoSelect = document.getElementById("Motivo");
+
+    if (categoriaMotivoSelect.value !== "") {
+        motivoSelect.removeAttribute("disabled");
+        atualizarEstilo(motivoSelect, 'white');
+    } else {
+        motivoSelect.setAttribute("disabled", "disabled");
+        atualizarEstilo(motivoSelect, '');
+    }
+}
+
+function atualizarEstilo(elemento, backgroundColor) {
+    elemento.style.backgroundColor = backgroundColor;
+}
+
+//Validar botão adcionar
+function verificarEstoque() {
+    var estoque = parseInt(document.getElementById('Estoque').value);
+    var quantidade = document.getElementById('QuantidadeEstoque').value;
+    var btnAdicionar = document.getElementById('BtnInserirItens');
+
+    if (estoque > 0 && quantidade > 0) {
+        if(quantidade <= estoque){
+            btnAdicionar.removeAttribute('disabled');
+        } else{
+            alert('A quantidade inserida é maior do que a quantidade existente em estoque!\nPor favor insira outro valor.');
+        }
+        
+    } else {
+        btnAdicionar.setAttribute('disabled', 'disabled');
+    }
+}

@@ -29,7 +29,7 @@
                         </div>
                         <div class="grupo2 grupoInput">
                             <span>Departamento</span>
-                            <input type="text" id="departamento" data-obrigatorio="true" >
+                            <input type="text" disabled id="departamento" data-obrigatorio="true" >
                         </div>
                         <div class="grupo3 grupoInput">
                             <span>Data</span>
@@ -43,25 +43,25 @@
                         </div>
                         <div class="grupo5 grupoInput">
                             <span>Nome Funcionário</span>
-                            <input type="text" id="NomeFuncionario">
+                            <input type="text" disabled id="NomeFuncionario">
                         </div>
                         <div class="grupo6 grupoInput">
                             <span>Cargo</span>
-                            <input type="text" id="cargo" data-obrigatorio="true">
+                            <input type="text" disabled id="cargo" data-obrigatorio="true">
                         </div>
                     </div>
                     <div class="camposPrincipaisLinha3 linhasCampos">
                         <div class="grupo7 grupoInput">
                             <span>Categoria Motivo</span>  
                             <div class="grupoCategoria">                                                         
-                                <select id="categoriaMotivo" data-obrigatorio="true"></select>
+                                <select id="categoriaMotivo" onchange="habilitarMotivo()" data-obrigatorio="true"></select>
                                 <img class="btnAdd" src="assets/img/add.svg" alt="">
                             </div>
                         </div>
                         <div class="grupo8 grupoInput">
                             <span>Motivo</span> 
                             <div class="grupoMotivo"> 
-                                <select id="Motivo" disabled data-obrigatorio="true"></select>
+                                <select id="Motivo" style="background-color: #e0e0e0;" disabled data-obrigatorio="true" ></select>
                                 <img class="btnAdd" src="assets/img/add.svg" alt="">
                             </div>                            
                    
@@ -106,15 +106,15 @@
                             </div>
                             <div class="grupoProdutoDescricao">
                                 <span>Descrição</span>
-                                <input type="text" id="DescricaoProduto">
+                                <input type="text" disabled id="DescricaoProduto">
                             </div>
                             <div class="grupoEstoque">
                                 <span>Estoque</span>
-                                <input type="text" id="Estoque" data-only-number="true">
+                                <input type="text" disabled id="Estoque" data-only-number="true">
                             </div>
                             <div class="grupoQuantidade">
                                 <span>Quantidade</span>
-                                <input type="number" id="QuantidadeEstoque" data-only-number="true" min="0">
+                                <input type="number" id="QuantidadeEstoque" data-only-number="true" min="0" onchange="verificarEstoque()">
                             </div>
                             <div class="grupoTotal">
                                 <span id="total"></span>
@@ -133,8 +133,8 @@
                                 </div>                           
                                 
                             </div>
-                            <div class="BtnInserirItens" id="BtnInserirItens">  
-                                <span>Adcionar</span>
+                            <div>  
+                                <button class="BtnInserirItens" id="BtnInserirItens" disabled>Adicionar</button>
                             </div>
 
                         
