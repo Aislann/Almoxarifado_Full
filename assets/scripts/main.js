@@ -339,7 +339,7 @@ function atualizarEstilo(elemento, backgroundColor) {
 }
 
 //Validar botão adcionar
-function verificarEstoque() {
+function verificarEstoqueBotao() {
     var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
     var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
     var btnAdicionar = document.getElementById('BtnInserirItens');
