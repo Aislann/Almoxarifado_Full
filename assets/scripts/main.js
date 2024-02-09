@@ -77,11 +77,6 @@ document.getElementById('CodigoProduto').addEventListener("keyup",function(){
     } else{
         document.getElementById('Estoque').value="";
     }
-    if(produtosFiltrados.length > 0){
-        document.getElementById('total').value=produtosFiltrados[0].Estoque;
-    } else{
-        document.getElementById('total').value="";
-    }
 
 
 });
@@ -153,7 +148,7 @@ document.getElementById('btn-gravar').addEventListener('click',function(){
     },1000);
 
     elementosObrigatorios.forEach(function(item){
-        
+    
         if (item.value=="" || item.value==-1){
             item.style.backgroundColor='red';
             validadoCamposPreenhcidos=false;
@@ -213,6 +208,11 @@ carregarMotivos();
 adcionarRegraCamposSomenteNumeros();
 criarBtnRemover()
 
+document.addEventListener('DOMContentLoaded', function() {
+    const totalRequisicao = document.getElementById('total');
+    totalRequisicao.value = 0;
+});
+
 document.getElementById('BtnInserirItens').addEventListener('click',function(){
     const tabelaItens = document.getElementById("tabelaItens")
 
@@ -258,25 +258,28 @@ document.getElementById('BtnInserirItens').addEventListener('click',function(){
     tabelaItens.appendChild(linha)
 })
 
-function criarBtnRemover(tabela, objLinha, numeroLinha){
-    const btnRemoverItem = document.createElement('div')
-    btnRemoverItem.className = "BtnRemover"
-    btnRemoverItem.id  = 'btnRemover' + numeroLinha
-    btnRemoverItem.innerHTML = '<span class="BtnRemover" id="btnRemover">Remover</span>'
+function criarBtnRemover(tabela, objLinha, numeroLinha) {
+    const btnRemoverItem = document.createElement('div');
+    btnRemoverItem.className = "BtnRemover";
+    btnRemoverItem.id = 'btnRemover' + numeroLinha;
+    btnRemoverItem.innerHTML = '<span class="BtnRemover" id="btnRemover">Remover</span>';
 
-    btnRemoverItem.addEventListener('click',function(){
-        if(objLinha && tabelaItens.contains(objLinha)){
-            tabelaItens.removeChild(objLinha)
+    btnRemoverItem.addEventListener('click', function () {
+        if (objLinha && tabela.contains(objLinha)) {
+            tabela.removeChild(objLinha);
         }
 
-        const totalRequisicao = document.getElementById('total')
-        const colunas = objLinha.getElementByTagName('td')
-        let valorLinha = colunas[5].innerText
+        const totalRequisicao = document.getElementById('total');
+        const colunas = objLinha.getElementsByTagName('td');
+        let valorLinha = colunas[5].innerText;
 
-        totalRequisicao.value = parseFloat(totalRequisicao.value=parseFloat(valorLinha))
-    })
+        totalRequisicao.value = parseFloat(totalRequisicao.value) - parseFloat(valorLinha);
 
-    return btnRemoverItem
+        // Certifique-se de que o total não seja negativo
+        totalRequisicao.value = Math.max(0, parseFloat(totalRequisicao.value));
+    });
+
+    return btnRemoverItem;
 }
 
 
@@ -337,18 +340,43 @@ function atualizarEstilo(elemento, backgroundColor) {
 
 //Validar botão adcionar
 function verificarEstoque() {
-    var estoque = parseInt(document.getElementById('Estoque').value);
-    var quantidade = document.getElementById('QuantidadeEstoque').value;
+    var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
+    var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
     var btnAdicionar = document.getElementById('BtnInserirItens');
 
-    if (estoque > 0 && quantidade > 0) {
-        if(quantidade <= estoque){
+    if (codigoProduto && quantidade > 0) {
+        var produto = produtos.find(p => p.idProduto === codigoProduto);
+        var btnGravar = document.getElementById('btn-gravar');
+
+        if (produto && quantidade <= produto.Estoque) {
             btnAdicionar.removeAttribute('disabled');
-        } else{
-            alert('A quantidade inserida é maior do que a quantidade existente em estoque!\nPor favor insira outro valor.');
+            btnGravar.removeAttribute('disabled');
+        } else {
+            alert('Produto não encontrado ou a quantidade inserida é maior do que a quantidade existente em estoque!\nPor favor, insira outro valor.');
+            btnAdicionar.setAttribute('disabled', 'disabled');
+            btnGravar.setAttribute('disabled', 'disabled');
         }
-        
     } else {
         btnAdicionar.setAttribute('disabled', 'disabled');
     }
 }
+
+function atualizarEstoque() {
+    var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
+    var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
+    var produto = produtos.find(p => p.idProduto === codigoProduto);
+
+    if (produto && quantidade <= produto.Estoque) {
+        produto.Estoque -= quantidade;
+        // Aqui você pode adicionar lógica adicional, como atualizar o HTML para exibir o novo estoque.
+        console.log(`Estoque atualizado para o produto ${produto.Descricao}: ${produto.Estoque}`);
+    }
+}
+
+
+
+function gravar() {
+    alert("Informações gravadas!");
+}
+
+

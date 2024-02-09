@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Almoxarifado</title>
+    <link rel="shortcut icon" href="./assets/img/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/requisicao.css">
     <link rel="stylesheet" href="assets/css/inputRequisicao.css">
     <link rel="stylesheet" href="assets/css/responsividade.css">
@@ -116,10 +117,10 @@
                                 <span>Quantidade</span>
                                 <input type="number" id="QuantidadeEstoque" data-only-number="true" min="0" onchange="verificarEstoque()">
                             </div>
-                            <div class="grupoTotal">
+                            <!-- <div class="grupoTotal">
                                 <span id="total"></span>
                                 
-                            </div>
+                            </div> -->
                         
                         
                             <div class="grupoStatusEstoque" id="EstoqueMinimo"> 
@@ -134,7 +135,7 @@
                                 
                             </div>
                             <div>  
-                                <button class="BtnInserirItens" id="BtnInserirItens" disabled>Adicionar</button>
+                                <button class="BtnInserirItens" id="BtnInserirItens" disabled onclick="atualizarEstoque()">Adicionar</button>
                             </div>
 
                         
@@ -151,13 +152,14 @@
                                 <th>#</th>
                             </tr>
                         </table>
-                    
-                    <div class="grupoBtnInserirItens">
-                        
-                        
+                    <div class="grupoTotal">
+                        <span>Total</span>
+                        <input type="number" id="total" disabled data-obrigatorio="true" />
                     </div>
-                    <div class="BtnInserirItens" id="btn-gravar">  
-                        <span>Gravar</span>
+                    <div class="grupoBtnInserirItens">
+                    </div>
+                    <div>  
+                        <button class="BtnInserirItens" id="btn-gravar" disabled onclick="gravar()">Gravar</button>
                     </div>
                 </div>
             </div>

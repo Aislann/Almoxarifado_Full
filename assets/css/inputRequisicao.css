@@ -95,16 +95,18 @@ input, select{
 
 .BtnInserirItens{
     background-color:black ;
-    width: 75px;
+    width: 95px;
+    height: 50px;
     border-radius: 30px;
     display: flex;
     justify-content: center;
     align-items: center ;
     cursor: pointer;
     margin-top: 20px;
-    padding: 10px;
-    height: 70%;
+    padding: 12px;
     transition: 0.4s;
+    color: #ffffff;
+    font-size: 22px;
 }
 .BtnInserirItens:hover {
     background-color: #3a3a3a;
@@ -146,11 +148,6 @@ input, select{
 .BtnRemover span{
     color: #ffffff;
     font-size: 15px;
-}
-
-.BtnInserirItens span{
-    color: #ffffff;
-    font-size: 25px;
 }
 
 

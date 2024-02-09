@@ -39,7 +39,6 @@ body {
 .header span{
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-
 }
 .conteudo{
     display: flex;
@@ -274,3 +273,19 @@ body {
     margin-bottom: 10px;
 }
 
+.grupoTotal {
+    display: flex;
+    justify-items:center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.grupoTotal input{
+    border-radius: 2rem;
+    margin-left: 0.5rem;
+}
+
+.grupoTotal span{
+    font-size: 18px;
+    font-weight: bold;
+}
