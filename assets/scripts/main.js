@@ -90,21 +90,21 @@ document.getElementById('idDepartamento').addEventListener("keyup",function() {
     } else{
         document.getElementById('departamento').value="";
     }
-    if(departamentosFiltrados.length > 0){
-        document.getElementById('NomeFuncionario').value=departamentosFiltrados[0].Responsavel;
-    } else{
-        document.getElementById('NomeFuncionario').value="";
-    }
-    if(departamentosFiltrados.length > 0){
-        document.getElementById('idFuncionario').value=departamentosFiltrados[0].idFunc;
-    } else{
-        document.getElementById('idFuncionario').value="";
-    }
-    if(departamentosFiltrados.length > 0){
-        document.getElementById('cargo').value=departamentosFiltrados[0].cargo;
-    } else{
-        document.getElementById('cargo').value="";
-    }
+    // if(departamentosFiltrados.length > 0){
+    //     document.getElementById('NomeFuncionario').value=departamentosFiltrados[0].Responsavel;
+    // } else{
+    //     document.getElementById('NomeFuncionario').value="";
+    // }
+    // if(departamentosFiltrados.length > 0){
+    //     document.getElementById('idFuncionario').value=departamentosFiltrados[0].idFunc;
+    // } else{
+    //     document.getElementById('idFuncionario').value="";
+    // }
+    // if(departamentosFiltrados.length > 0){
+    //     document.getElementById('cargo').value=departamentosFiltrados[0].cargo;
+    // } else{
+    //     document.getElementById('cargo').value="";
+    // }
     
 });
 
@@ -112,21 +112,21 @@ document.getElementById('idFuncionario').addEventListener("keyup",function() {
     const codigoPesquisado = document.getElementById('idFuncionario').value;
     let departamentosFiltrados = departamentos.filter((p)=> p.idFunc==codigoPesquisado);
 
-    if(departamentosFiltrados.length > 0){
-        document.getElementById('departamento').value=departamentosFiltrados[0].Descricao;
-    } else{
-        document.getElementById('departamento').value="";
-    }
+    // if(departamentosFiltrados.length > 0){
+    //     document.getElementById('departamento').value=departamentosFiltrados[0].Descricao;
+    // } else{
+    //     document.getElementById('departamento').value="";
+    // }
     if(departamentosFiltrados.length > 0){
         document.getElementById('NomeFuncionario').value=departamentosFiltrados[0].Responsavel;
     } else{
         document.getElementById('NomeFuncionario').value="";
     }
-    if(departamentosFiltrados.length > 0){
-        document.getElementById('idDepartamento').value=departamentosFiltrados[0].idDep;
-    } else{
-        document.getElementById('idDepartamento').value="";
-    }
+    // if(departamentosFiltrados.length > 0){
+    //     document.getElementById('idDepartamento').value=departamentosFiltrados[0].idDep;
+    // } else{
+    //     document.getElementById('idDepartamento').value="";
+    // }
     if(departamentosFiltrados.length > 0){
         document.getElementById('cargo').value=departamentosFiltrados[0].cargo;
     } else{
@@ -267,7 +267,18 @@ function criarBtnRemover(tabela, objLinha, numeroLinha) {
     btnRemoverItem.addEventListener('click', function () {
         if (objLinha && tabela.contains(objLinha)) {
             tabela.removeChild(objLinha);
+        
+            var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
+            var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
+            var produto = produtos.find(p => p.idProduto === codigoProduto);
+        
+            if (produto) {
+                // Verifica se o produto existe antes de atualizar o estoque
+                produto.Estoque += quantidade;
+                document.getElementById('Estoque').value = produto.Estoque;
+            }
         }
+        
 
         const totalRequisicao = document.getElementById('total');
         const colunas = objLinha.getElementsByTagName('td');
@@ -275,7 +286,6 @@ function criarBtnRemover(tabela, objLinha, numeroLinha) {
 
         totalRequisicao.value = parseFloat(totalRequisicao.value) - parseFloat(valorLinha);
 
-        // Certifique-se de que o total não seja negativo
         totalRequisicao.value = Math.max(0, parseFloat(totalRequisicao.value));
     });
 
@@ -343,6 +353,7 @@ function verificarEstoqueBotao() {
     var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
     var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
     var btnAdicionar = document.getElementById('BtnInserirItens');
+    
 
     if (codigoProduto && quantidade > 0) {
         var produto = produtos.find(p => p.idProduto === codigoProduto);
@@ -365,18 +376,24 @@ function atualizarEstoque() {
     var codigoProduto = parseInt(document.getElementById('CodigoProduto').value);
     var quantidade = parseInt(document.getElementById('QuantidadeEstoque').value);
     var produto = produtos.find(p => p.idProduto === codigoProduto);
+    var btnAdicionar = document.getElementById('BtnInserirItens');
 
     if (produto && quantidade <= produto.Estoque) {
         produto.Estoque -= quantidade;
-        // Aqui você pode adicionar lógica adicional, como atualizar o HTML para exibir o novo estoque.
-        console.log(`Estoque atualizado para o produto ${produto.Descricao}: ${produto.Estoque}`);
+        document.getElementById('Estoque').value = produto.Estoque;
+        var estoque = parseInt(document.getElementById('Estoque').value);
+
+    if (estoque < 1){
+        btnAdicionar.setAttribute('disabled', 'disabled');
+    }
     }
 }
-
 
 
 function gravar() {
     alert("Informações gravadas!");
 }
 
-
+document.getElementById('CodigoProduto').addEventListener('input', function() {
+    document.getElementById('QuantidadeEstoque').value = 0;
+  });
